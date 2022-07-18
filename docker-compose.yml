@@ -1,0 +1,21 @@
+version: "3.4"
+services:
+    tiny-mjpg-streamer-1:
+       image: tiny-mjpg-streamer
+       ports:
+            - '8080:8080'
+       command: -i "input_uvc.so -n -d /dev/video0 -r 1280x720 -f 5" -o "output_http.so -w  /usr/share/mjpg-streamer/www/"
+       devices:
+            - /dev/<path_to_your_webcam>:/dev/video0
+       restart: unless-stopped
+
+## optional second camera
+
+#    tiny-mjpg-streamer-2:
+#       image: tiny-mjpg-streamer
+#       ports:
+#            - '8081:8080'
+#       command: -i "input_uvc.so -n -d /dev/video1 -r 1280x720 -f 5" -o "output_http.so"
+#       devices:
+#            - /dev/<path_to_your_webcam2>:/dev/video1
+#       restart: unless-stopped
